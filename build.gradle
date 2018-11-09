@@ -1,0 +1,58 @@
+plugins {
+    id "base"
+    id "java-library"
+    //Gradle build scan plugin
+    id "com.gradle.build-scan" version "1.16"
+    //Code Quality plugins
+    id "net.ltgt.errorprone" version "0.6"
+    id "ru.vyarus.animalsniffer" version "1.4.6"
+    id "com.github.hierynomus.license" version "0.14.0"
+    id "checkstyle"
+    id "findbugs"
+    id "jacoco"
+    //IDE plugins
+    id "eclipse"
+    id "idea"
+}
+ext {
+	junitVersion='5.3.1'
+	junit4Version='4.12'
+}
+
+//Jar Information
+group 'com.rba'
+version '0.1.0-SNAPSHOT'
+
+sourceCompatibility = 1.8	
+targetCompatibility = 1.8
+//keep this lined up with maven
+buildDir='target'
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	//setup junit 4 and junit 5 support
+	testImplementation("junit:junit:${junit4Version}")
+	testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: "${junitVersion}"
+	testImplementation("org.junit.jupiter:junit-jupiter-params:${junitVersion}")
+	testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${junitVersion}")
+	testRuntimeOnly("org.junit.vintage:junit-vintage-engine:${junitVersion}")
+
+}
+test {
+	//Tell it to use the junit 5 platform engine for running unit tests
+	useJUnitPlatform()
+}
+
+checkstyle {
+    configFile = rootProject.file('config/checkstyle/checkstyle.xml')
+}
+
+//Posting Build scans to https://scans.gradle.com
+buildScan {
+    licenseAgreementUrl = 'https://gradle.com/terms-of-service'
+    licenseAgree = 'yes'
+}
+
