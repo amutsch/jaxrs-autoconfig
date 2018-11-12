@@ -15,35 +15,43 @@ plugins {
     id "idea"
 }
 ext {
-	junitVersion='5.3.1'
-	junit4Version='4.12'
+    junitVersion='5.3.1'
+    junit4Version='4.12'
+    slf4jApiVersion='1.7.25'
+    jaxrsVersion='2.1.1'
 }
 
 //Jar Information
 group 'com.rba'
 version '0.1.0-SNAPSHOT'
 
-sourceCompatibility = 1.8	
+sourceCompatibility = 1.8
 targetCompatibility = 1.8
 //keep this lined up with maven
 buildDir='target'
 
 repositories {
-	mavenCentral()
+    mavenCentral()
 }
 
 dependencies {
-	//setup junit 4 and junit 5 support
-	testImplementation("junit:junit:${junit4Version}")
-	testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: "${junitVersion}"
-	testImplementation("org.junit.jupiter:junit-jupiter-params:${junitVersion}")
-	testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${junitVersion}")
-	testRuntimeOnly("org.junit.vintage:junit-vintage-engine:${junitVersion}")
+    //setup junit 4 and junit 5 support
+    testImplementation("junit:junit:${junit4Version}")
+    testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: "${junitVersion}"
+    testImplementation("org.junit.jupiter:junit-jupiter-params:${junitVersion}")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${junitVersion}")
+    testRuntimeOnly("org.junit.vintage:junit-vintage-engine:${junitVersion}")
 
+    //Logging API
+    implementation("org.slf4j:slf4j-api:${slf4jApiVersion}")
+
+    //JAXRS api
+    implementation("javax.ws.rs:javax.ws.rs-api:${jaxrsVersion}")
 }
+
 test {
-	//Tell it to use the junit 5 platform engine for running unit tests
-	useJUnitPlatform()
+    //Tell it to use the junit 5 platform engine for running unit tests
+    useJUnitPlatform()
 }
 
 checkstyle {
@@ -55,4 +63,3 @@ buildScan {
     licenseAgreementUrl = 'https://gradle.com/terms-of-service'
     licenseAgree = 'yes'
 }
-
