@@ -212,7 +212,7 @@
     <property name="eachLine" value="true"/>
   </module>
   <module name="RegexpHeader">
-    <property name="headerFile" value="config\checkstyle\header.txt"/>
+    <property name="headerFile" value="config/checkstyle/header.txt"/>
     <property name="fileExtensions" value="java"/>
   </module>
 </module>
