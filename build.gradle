@@ -60,7 +60,6 @@ test {
 }
 
 checkstyle {
-    configFile = rootProject.file('config/checkstyle/checkstyle.xml')
     toolVersion = '8.14'
 }
 
