@@ -4,9 +4,8 @@ plugins {
     //Gradle build scan plugin
     id "com.gradle.build-scan" version "1.16"
     //Code Quality plugins
-    id "net.ltgt.errorprone" version "0.6"
+    id "com.digitalascent.gradle.errorprone" version "1.0"
     id "ru.vyarus.animalsniffer" version "1.4.6"
-    id "com.github.hierynomus.license" version "0.14.0"
     id "checkstyle"
     id "findbugs"
     id "jacoco"
@@ -50,16 +49,32 @@ dependencies {
 }
 
 test {
-    //Tell it to use the junit 5 platform engine for running unit tests
-    useJUnitPlatform()
+	//Tell it to use the junit 5 platform engine for running unit tests
+	useJUnitPlatform()
+    //configure coverage reports
+    jacoco {
+        append = false
+        destinationFile = file("$buildDir/jacoco/jacocoTest.exec")
+        //classDumpDir = file("$buildDir/jacoco/classpathdumps")
+    }
 }
 
 checkstyle {
-    configFile = rootProject.file('config/checkstyle/checkstyle.xml')
+    toolVersion = '8.14'
 }
 
 //Posting Build scans to https://scans.gradle.com
 buildScan {
     licenseAgreementUrl = 'https://gradle.com/terms-of-service'
     licenseAgree = 'yes'
+    publishAlways()
+}
+
+jacocoTestReport {
+    reports {
+        xml.enabled true
+        xml.destination file("${buildDir}/reports/jacoco/report.xml")
+        csv.enabled false
+        html.destination file("${buildDir}/reports/jacoco/html")
+    }
 }

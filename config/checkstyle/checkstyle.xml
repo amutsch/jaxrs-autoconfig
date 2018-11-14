@@ -9,7 +9,7 @@
     Description: none
 -->
 <module name="Checker">
-  <property name="severity" value="warning"/>
+  <property name="severity" value="error"/>
   <property name="charset" value="UTF-8"/>
   <property name="fileExtensions" value="java, properties, xml"/>
   <module name="TreeWalker">
@@ -37,7 +37,7 @@
     </module>
     <module name="NeedBraces"/>
     <module name="LeftCurly">
-      <property name="option" value="nl"/>
+      <property name="option" value="eol"/>
     </module>
     <module name="RightCurly">
       <property name="id" value="RightCurlySame"/>
@@ -138,10 +138,6 @@
       <message key="ws.illegalFollow" value="GenericWhitespace ''{0}'' should followed by whitespace."/>
     </module>
     <module name="Indentation"/>
-    <module name="AbbreviationAsWordInName">
-      <property name="allowedAbbreviationLength" value="1"/>
-      <property name="ignoreFinal" value="false"/>
-    </module>
     <module name="OverloadMethodsDeclarationOrder"/>
     <module name="VariableDeclarationUsageDistance"/>
     <module name="CustomImportOrder">
@@ -216,7 +212,7 @@
     <property name="eachLine" value="true"/>
   </module>
   <module name="RegexpHeader">
-    <property name="headerFile" value="config\checkstyle\header.txt"/>
+    <property name="headerFile" value="config/checkstyle/header.txt"/>
     <property name="fileExtensions" value="java"/>
   </module>
 </module>

@@ -2,4 +2,9 @@ language: java
 git:
   depth: false
   quiet: true
+script:
+- ./gradlew build --stacktrace
 
+after_success:
+- ./gradlew jacocoTestReport --stacktrace && cp target/reports/jacoco/report.xml jacoco.xml || echo "Code coverage failed"
+- bash <(curl -s https://codecov.io/bash) || echo "Codecov did not collect coverage reports"
