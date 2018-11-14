@@ -14,27 +14,29 @@
  * limitations under the License.
  */
 
-package com.rba.jaxrs.autoconfig.version;
+package com.rba.jaxrs.autoconfig.classify;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 /**
- * Runs basic validations to ensure the EmptyApiVersion properly meets the ApiVersion expectations and defaults come through.
+ * Runs basic validations to ensure the {@link EmptyApiContext} properly meets the {@link ApiContext} expectations and defaults
+ * come
+ * through.
  *
  * @author AUtsch - Adam Utsch - adam.utsch@rbaconsulting.com
- * @since 11/13/2018
+ * @since 11/14/2018
  */
-class EmptyApiVersionUTEST {
+class EmptyApiContextUTEST {
 
     @Test
-    void validateApiVersion() {
-        Assertions.assertNull(EmptyApiVersion.EMPTY_API_VERSION.getApiVersion(), "The API Version should always be null");
+    void validateApiContext() {
+        Assertions.assertNull(EmptyApiContext.EMPTY_API_CONTEXT.getApiContext(), "The API Context should always be null");
     }
 
     @Test
-    void validateEmptyApiVersionEnabled() {
-        Assertions.assertTrue(EmptyApiVersion.EMPTY_API_VERSION.isApiVersionEnabled(), "This should always be true from the "
-                + "default of the interface");
+    void validateEmptyApiContextEnabled() {
+        Assertions.assertTrue(EmptyApiContext.EMPTY_API_CONTEXT.isApiContextEnabled(), "This should always be true from "
+                + "the default of the interface");
     }
 }

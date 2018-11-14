@@ -14,27 +14,31 @@
  * limitations under the License.
  */
 
-package com.rba.jaxrs.autoconfig.version;
+package com.rba.jaxrs.autoconfig.classify;
 
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
+import com.sun.istack.internal.Nullable;
 
 /**
- * Runs basic validations to ensure the EmptyApiVersion properly meets the ApiVersion expectations and defaults come through.
+ * A default implementation of {@link ApiContext} that provides a null value for api context and is enabled.
  *
  * @author AUtsch - Adam Utsch - adam.utsch@rbaconsulting.com
- * @since 11/13/2018
+ * @since 11 /14/2018
+ * @Since 0.1.0
  */
-class EmptyApiVersionUTEST {
+public class EmptyApiContext implements ApiContext {
 
-    @Test
-    void validateApiVersion() {
-        Assertions.assertNull(EmptyApiVersion.EMPTY_API_VERSION.getApiVersion(), "The API Version should always be null");
+    /**
+     * The constant EMPTY_API_CONTEXT.
+     */
+    public static final EmptyApiContext EMPTY_API_CONTEXT = new EmptyApiContext();
+
+    //Private EmptyApiContext constructor since context and enabled can not be changed, force use of the static EMPTY_API_CONTEXT
+    private EmptyApiContext() {}
+
+    @Nullable
+    @Override
+    public String getApiContext() {
+        return null;
     }
 
-    @Test
-    void validateEmptyApiVersionEnabled() {
-        Assertions.assertTrue(EmptyApiVersion.EMPTY_API_VERSION.isApiVersionEnabled(), "This should always be true from the "
-                + "default of the interface");
-    }
 }
