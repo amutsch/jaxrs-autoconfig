@@ -17,9 +17,12 @@
 package com.rba.jaxrs.autoconfig.version;
 
 /**
+ * A special {@link com.rba.jaxrs.autoconfig.classify.ApiContext} geared directly towards versioning.  Broken into its own
+ * interface so we can force a single version context to a single endpoint.
+ * <p>
  * Interface that indicates a version segment of an api url.  The version can be enabled/disabled and the context can be a string
  * or null/empty.  It is expected that factories creating the jaxrs servers will honor this enabled flag.
- *
+ *</p>
  * @author AUtsch - Adam Utsch - adam.utsch@rbaconsulting.com
  * @since 11 /13/2018
  * @since 0.1
@@ -27,15 +30,15 @@ package com.rba.jaxrs.autoconfig.version;
 public interface ApiVersion {
 
     /**
-     * Gets api version.
+     * Gets the api version context as a string.
      *
      * @return the api version
      */
     String getApiVersion();
 
     /**
-     * Returns if the api version is enabled and should be host by a jaxrs server.
-     * Defaults the True
+     * Returns if the api version is enabled and should be hosted by a jaxrs server.
+     * Defaults to True
      *
      * @return the boolean
      */
