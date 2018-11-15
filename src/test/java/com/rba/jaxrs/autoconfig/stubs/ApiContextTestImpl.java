@@ -14,25 +14,35 @@
  * limitations under the License.
  */
 
-package com.rba.jaxrs.autoconfig.version;
+package com.rba.jaxrs.autoconfig.stubs;
 
-import com.sun.istack.internal.Nullable;
+import com.rba.jaxrs.autoconfig.classify.ApiContext;
 
 /**
- * A default implementation of {@link ApiVersion} that provides a null value for api version and is enabled.
- *<p/>
- * This is an enum to support embedding into an annotation.
  * @author AUtsch - Adam Utsch - adam.utsch@rbaconsulting.com
- * @since 11 /13/2018
+ * @since 11/14/2018
  */
-public enum EmptyApiVersion implements ApiVersion {
+public enum ApiContextTestImpl implements ApiContext {
+    OPEN("open", true),
+    AUTHENTICATED("", true),
+    ADMIN("admin", true),
+    TEST("testing", false);
 
-    EMPTY_API_VERSION;
+    private final String apiContext;
+    private final boolean contextEnabled;
 
-    @Nullable
-    @Override
-    public String getApiVersion() {
-        return null;
+    ApiContextTestImpl(String version, boolean enabled) {
+        this.apiContext = version;
+        this.contextEnabled = enabled;
     }
 
+    @Override
+    public String getApiContext() {
+        return apiContext;
+    }
+
+    @Override
+    public boolean isApiContextEnabled() {
+        return contextEnabled;
+    }
 }
