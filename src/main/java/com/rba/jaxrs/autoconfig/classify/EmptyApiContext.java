@@ -20,20 +20,15 @@ import com.sun.istack.internal.Nullable;
 
 /**
  * A default implementation of {@link ApiContext} that provides a null value for api context and is enabled.
- *
+ * <p/>
+ * This is an enum to support embedding into an annotation.
  * @author AUtsch - Adam Utsch - adam.utsch@rbaconsulting.com
  * @since 11 /14/2018
  * @Since 0.1.0
  */
-public class EmptyApiContext implements ApiContext {
+public enum EmptyApiContext implements ApiContext {
 
-    /**
-     * The constant EMPTY_API_CONTEXT.
-     */
-    public static final EmptyApiContext EMPTY_API_CONTEXT = new EmptyApiContext();
-
-    //Private EmptyApiContext constructor since context and enabled can not be changed, force use of the static EMPTY_API_CONTEXT
-    private EmptyApiContext() {}
+    EMPTY_API_CONTEXT;
 
     @Nullable
     @Override

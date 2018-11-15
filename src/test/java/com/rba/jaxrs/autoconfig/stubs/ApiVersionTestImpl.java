@@ -14,25 +14,34 @@
  * limitations under the License.
  */
 
-package com.rba.jaxrs.autoconfig.version;
+package com.rba.jaxrs.autoconfig.stubs;
 
-import com.sun.istack.internal.Nullable;
+import com.rba.jaxrs.autoconfig.version.ApiVersion;
 
 /**
- * A default implementation of {@link ApiVersion} that provides a null value for api version and is enabled.
- *<p/>
- * This is an enum to support embedding into an annotation.
  * @author AUtsch - Adam Utsch - adam.utsch@rbaconsulting.com
- * @since 11 /13/2018
+ * @since 11/14/2018
  */
-public enum EmptyApiVersion implements ApiVersion {
+public enum ApiVersionTestImpl implements ApiVersion {
+    INTERNAL("", true),
+    EXTERNAL_V1("v1", true),
+    EXTERNAL_V2("v2", false);
 
-    EMPTY_API_VERSION;
+    private final String apiVersion;
+    private final boolean apiEnabled;
 
-    @Nullable
-    @Override
-    public String getApiVersion() {
-        return null;
+    ApiVersionTestImpl(String version, boolean enabled) {
+        this.apiVersion = version;
+        this.apiEnabled = enabled;
     }
 
+    @Override
+    public String getApiVersion() {
+        return apiVersion;
+    }
+
+    @Override
+    public boolean isApiVersionEnabled() {
+        return apiEnabled;
+    }
 }

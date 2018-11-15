@@ -14,25 +14,15 @@
  * limitations under the License.
  */
 
-package com.rba.jaxrs.autoconfig.version;
+package com.rba.jaxrs.autoconfig.stubs;
 
-import com.sun.istack.internal.Nullable;
+import com.rba.jaxrs.autoconfig.annotations.RestApiEndpoint;
 
 /**
- * A default implementation of {@link ApiVersion} that provides a null value for api version and is enabled.
- *<p/>
- * This is an enum to support embedding into an annotation.
  * @author AUtsch - Adam Utsch - adam.utsch@rbaconsulting.com
- * @since 11 /13/2018
+ * @since 11/14/2018
  */
-public enum EmptyApiVersion implements ApiVersion {
-
-    EMPTY_API_VERSION;
-
-    @Nullable
-    @Override
-    public String getApiVersion() {
-        return null;
-    }
-
+@RestApiEndpoint
+public class StubEndpointWithEmptyAnnotation {
+    //Empty class, annotation testing
 }

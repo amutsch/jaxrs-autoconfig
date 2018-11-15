@@ -14,25 +14,19 @@
  * limitations under the License.
  */
 
-package com.rba.jaxrs.autoconfig.version;
+package com.rba.jaxrs.autoconfig.annotations;
 
-import com.sun.istack.internal.Nullable;
+import cucumber.api.CucumberOptions;
+import cucumber.api.junit.Cucumber;
+import org.junit.runner.RunWith;
 
 /**
- * A default implementation of {@link ApiVersion} that provides a null value for api version and is enabled.
- *<p/>
- * This is an enum to support embedding into an annotation.
  * @author AUtsch - Adam Utsch - adam.utsch@rbaconsulting.com
- * @since 11 /13/2018
+ * @since 11/14/2018
  */
-public enum EmptyApiVersion implements ApiVersion {
-
-    EMPTY_API_VERSION;
-
-    @Nullable
-    @Override
-    public String getApiVersion() {
-        return null;
-    }
-
+@RunWith(Cucumber.class)
+@CucumberOptions(plugin = {"pretty"})
+public class CucumberTestRunner {
+    //Per cucumber documentation this is only an entry point.  The various tests can not contain these annotations, only
+    // test steps.
 }

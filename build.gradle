@@ -16,6 +16,7 @@ plugins {
 ext {
     junitVersion='5.3.1'
     junit4Version='4.12'
+    cucumberVersion='4.2.0'
     slf4jApiVersion='1.7.25'
     jaxrsVersion='2.1.1'
 }
@@ -40,17 +41,25 @@ dependencies {
     testImplementation("org.junit.jupiter:junit-jupiter-params:${junitVersion}")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${junitVersion}")
     testRuntimeOnly("org.junit.vintage:junit-vintage-engine:${junitVersion}")
+    //Cucumber Support
+    testImplementation(group: 'io.cucumber', name: 'cucumber-java', version: "${cucumberVersion}")
+    testImplementation(group: 'io.cucumber', name: 'cucumber-junit', version: "${cucumberVersion}")
 
     //Logging API
-    implementation("org.slf4j:slf4j-api:${slf4jApiVersion}")
+    api("org.slf4j:slf4j-api:${slf4jApiVersion}")
 
     //JAXRS api
-    implementation("javax.ws.rs:javax.ws.rs-api:${jaxrsVersion}")
+    api("javax.ws.rs:javax.ws.rs-api:${jaxrsVersion}")
 }
 
 test {
 	//Tell it to use the junit 5 platform engine for running unit tests
 	useJUnitPlatform()
+    //Basic output about passing and failing of tests
+    testLogging {
+        events "passed", "skipped", "failed"
+        exceptionFormat "full"
+    }
     //configure coverage reports
     jacoco {
         append = false
