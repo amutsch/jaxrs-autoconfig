@@ -14,36 +14,19 @@
  * limitations under the License.
  */
 
-package com.rba.jaxrs.autoconfig.stubs;
-
-import com.rba.jaxrs.autoconfig.version.ApiVersion;
+package com.rba.jaxrs.autoconfig.exceptions;
 
 /**
+ * An exception that occurs during transformation when the transformer can not resolve the context against enumerations in
+ * the system.
+ *
  * @author AUtsch - Adam Utsch - adam.utsch@rbaconsulting.com
- * @since 11/14/2018
+ * @since 11/16/2018
+ * @since 0.1.0
  */
-public enum ApiVersionTestImpl implements ApiVersion {
-    INTERNAL("", true),
-    EXTERNAL_V1("v1", true),
-    EXTERNAL_V2("v2", false),
-    NULL_VERSION(null, true);
+public class ContextResolverException extends RuntimeException {
 
-
-    private final String apiVersion;
-    private final boolean apiEnabled;
-
-    ApiVersionTestImpl(String version, boolean enabled) {
-        this.apiVersion = version;
-        this.apiEnabled = enabled;
-    }
-
-    @Override
-    public String getApiVersion() {
-        return apiVersion;
-    }
-
-    @Override
-    public boolean isApiVersionEnabled() {
-        return apiEnabled;
+    public ContextResolverException(String message) {
+        super(message);
     }
 }

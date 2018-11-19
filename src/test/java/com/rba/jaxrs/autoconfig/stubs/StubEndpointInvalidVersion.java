@@ -16,34 +16,12 @@
 
 package com.rba.jaxrs.autoconfig.stubs;
 
-import com.rba.jaxrs.autoconfig.version.ApiVersion;
+import com.rba.jaxrs.autoconfig.annotations.RestApiEndpoint;
 
 /**
  * @author AUtsch - Adam Utsch - adam.utsch@rbaconsulting.com
- * @since 11/14/2018
+ * @since 11/16/2018
  */
-public enum ApiVersionTestImpl implements ApiVersion {
-    INTERNAL("", true),
-    EXTERNAL_V1("v1", true),
-    EXTERNAL_V2("v2", false),
-    NULL_VERSION(null, true);
-
-
-    private final String apiVersion;
-    private final boolean apiEnabled;
-
-    ApiVersionTestImpl(String version, boolean enabled) {
-        this.apiVersion = version;
-        this.apiEnabled = enabled;
-    }
-
-    @Override
-    public String getApiVersion() {
-        return apiVersion;
-    }
-
-    @Override
-    public boolean isApiVersionEnabled() {
-        return apiEnabled;
-    }
+@RestApiEndpoint(apiVersionEnumName = "INVALID")
+public class StubEndpointInvalidVersion {
 }

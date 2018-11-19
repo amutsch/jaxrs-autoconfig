@@ -22,6 +22,7 @@ import com.sun.istack.internal.Nullable;
  * A default implementation of {@link ApiContext} that provides a null value for api context and is enabled.
  * <p/>
  * This is an enum to support embedding into an annotation.
+ *
  * @author AUtsch - Adam Utsch - adam.utsch@rbaconsulting.com
  * @since 11 /14/2018
  * @Since 0.1.0
