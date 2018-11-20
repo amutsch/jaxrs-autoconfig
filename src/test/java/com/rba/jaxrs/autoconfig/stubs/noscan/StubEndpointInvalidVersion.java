@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.rba.jaxrs.autoconfig.stubs;
+package com.rba.jaxrs.autoconfig.stubs.noscan;
 
 import com.rba.jaxrs.autoconfig.annotations.RestApiEndpoint;
 

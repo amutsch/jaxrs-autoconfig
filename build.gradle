@@ -20,6 +20,7 @@ ext {
     slf4jApiVersion='1.7.25'
     jaxrsVersion='2.1.1'
     classgraphVersion='4.4.12'
+    springVersion='5.1.2.RELEASE'
 }
 
 //Jar Information
@@ -54,6 +55,9 @@ dependencies {
 
     //Interface finding
     implementation("io.github.classgraph:classgraph:${classgraphVersion}")
+
+    //Spring annotations for component scanning
+    implementation("org.springframework:spring-context:${springVersion}")
 }
 
 test {
@@ -85,9 +89,9 @@ buildScan {
 
 jacocoTestReport {
     reports {
-        xml.enabled true
+        xml.setEnabled(true)
         xml.destination file("${buildDir}/reports/jacoco/report.xml")
-        csv.enabled false
+        csv.setEnabled(false)
         html.destination file("${buildDir}/reports/jacoco/html")
     }
 }
