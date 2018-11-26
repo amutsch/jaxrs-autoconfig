@@ -26,7 +26,8 @@ public enum ApiContextTestImpl implements ApiContext {
     OPEN("open", true),
     AUTHENTICATED("", true),
     ADMIN("admin", true),
-    TEST("testing", false);
+    TEST("testing", false),
+    NULL_CONTEXT(null, true);
 
     private final String apiContext;
     private final boolean contextEnabled;
@@ -44,5 +45,9 @@ public enum ApiContextTestImpl implements ApiContext {
     @Override
     public boolean isApiContextEnabled() {
         return contextEnabled;
+    }
+
+    public void test() {
+        Enum.valueOf(ApiContextTestImpl.class, "TEST");
     }
 }

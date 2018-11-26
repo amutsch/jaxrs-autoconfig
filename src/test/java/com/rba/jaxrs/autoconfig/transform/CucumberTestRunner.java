@@ -14,36 +14,19 @@
  * limitations under the License.
  */
 
-package com.rba.jaxrs.autoconfig.stubs;
+package com.rba.jaxrs.autoconfig.transform;
 
-import com.rba.jaxrs.autoconfig.version.ApiVersion;
+import cucumber.api.CucumberOptions;
+import cucumber.api.junit.Cucumber;
+import org.junit.runner.RunWith;
 
 /**
  * @author AUtsch - Adam Utsch - adam.utsch@rbaconsulting.com
  * @since 11/14/2018
  */
-public enum ApiVersionTestImpl implements ApiVersion {
-    INTERNAL("", true),
-    EXTERNAL_V1("v1", true),
-    EXTERNAL_V2("v2", false),
-    NULL_VERSION(null, true);
-
-
-    private final String apiVersion;
-    private final boolean apiEnabled;
-
-    ApiVersionTestImpl(String version, boolean enabled) {
-        this.apiVersion = version;
-        this.apiEnabled = enabled;
-    }
-
-    @Override
-    public String getApiVersion() {
-        return apiVersion;
-    }
-
-    @Override
-    public boolean isApiVersionEnabled() {
-        return apiEnabled;
-    }
+@RunWith(Cucumber.class)
+@CucumberOptions(plugin = {"pretty"})
+public class CucumberTestRunner {
+    //Per cucumber documentation this is only an entry point.  The various tests can not contain these annotations, only
+    // test steps.
 }

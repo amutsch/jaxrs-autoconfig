@@ -22,8 +22,10 @@ import com.sun.istack.internal.Nullable;
  * A default implementation of {@link ApiVersion} that provides a null value for api version and is enabled.
  *<p/>
  * This is an enum to support embedding into an annotation.
+ *
  * @author AUtsch - Adam Utsch - adam.utsch@rbaconsulting.com
  * @since 11 /13/2018
+ * @since 0.1.0
  */
 public enum EmptyApiVersion implements ApiVersion {
 

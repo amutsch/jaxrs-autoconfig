@@ -19,6 +19,7 @@ ext {
     cucumberVersion='4.2.0'
     slf4jApiVersion='1.7.25'
     jaxrsVersion='2.1.1'
+    classgraphVersion='4.4.12'
 }
 
 //Jar Information
@@ -50,14 +51,17 @@ dependencies {
 
     //JAXRS api
     api("javax.ws.rs:javax.ws.rs-api:${jaxrsVersion}")
+
+    //Interface finding
+    implementation("io.github.classgraph:classgraph:${classgraphVersion}")
 }
 
 test {
 	//Tell it to use the junit 5 platform engine for running unit tests
 	useJUnitPlatform()
-    //Basic output about passing and failing of tests
+    //Basic output about failing of tests
     testLogging {
-        events "passed", "skipped", "failed"
+        events "skipped", "failed"
         exceptionFormat "full"
     }
     //configure coverage reports

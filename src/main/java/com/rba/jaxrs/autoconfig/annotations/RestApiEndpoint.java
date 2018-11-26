@@ -33,6 +33,7 @@ import java.lang.annotation.Target;
  *
  * @author AUtsch - Adam Utsch - adam.utsch@rbaconsulting.com
  * @since 11 /14/2018
+ * @since 0.1.0
  */
 @Repeatable(RestApiEndpoint.RestApiEndpoints.class)
 @Documented
