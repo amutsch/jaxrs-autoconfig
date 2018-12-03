@@ -16,6 +16,8 @@
 
 package com.rba.jaxrs.autoconfig.transform;
 
+import java.util.Objects;
+
 /**
  * A container for holding the result of context transformation.  This class holds the final context and the indicator of
  * if the context is enabled.  The context will be enabled if {@link com.rba.jaxrs.autoconfig.version.ApiVersion} and all
@@ -58,5 +60,23 @@ public class EndpointContextContainer {
      */
     public boolean isEnabled() {
         return enabled;
+    }
+
+    //Override Equals and Hashcode as we are using this class in a Map Key during the scanning process.
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        EndpointContextContainer that = (EndpointContextContainer) o;
+        return enabled == that.enabled && Objects.equals(endpointContext, that.endpointContext);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(endpointContext, enabled);
     }
 }

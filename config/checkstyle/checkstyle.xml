@@ -138,10 +138,11 @@
     </module>
     <module name="Indentation"/>
     <module name="OverloadMethodsDeclarationOrder"/>
-    <module name="VariableDeclarationUsageDistance"/>
     <module name="CustomImportOrder">
+      <property name="severity" value="ignore"/>
       <property name="customImportOrderRules" value="STATIC###THIRD_PARTY_PACKAGE"/>
       <property name="sortImportsInGroupAlphabetically" value="true"/>
+      <metadata name="net.sf.eclipsecs.core.lastEnabledSeverity" value="inherit"/>
     </module>
     <module name="MethodParamPad"/>
     <module name="NoWhitespaceBefore">

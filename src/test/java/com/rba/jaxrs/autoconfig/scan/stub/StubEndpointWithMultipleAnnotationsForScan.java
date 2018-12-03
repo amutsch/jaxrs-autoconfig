@@ -14,14 +14,16 @@
  * limitations under the License.
  */
 
-package com.rba.jaxrs.autoconfig.stubs;
+package com.rba.jaxrs.autoconfig.scan.stub;
 
 import com.rba.jaxrs.autoconfig.annotations.RestApiEndpoint;
 
 /**
  * @author AUtsch - Adam Utsch - adam.utsch@rbaconsulting.com
- * @since 11/16/2018
+ * @since 11/14/2018
  */
-@RestApiEndpoint(apiContextEnumNames = {"INVALID_CONTEXT", "ADMIN"})
-public class StubEndpointInvalidContext {
+@RestApiEndpoint(apiVersionEnumName = "EXTERNAL_V1", apiContextEnumNames = "ADMIN")
+@RestApiEndpoint(apiVersionEnumName = "INTERNAL", apiContextEnumNames = {"OPEN"})
+public class StubEndpointWithMultipleAnnotationsForScan {
+    //Empty class, annotation testing
 }

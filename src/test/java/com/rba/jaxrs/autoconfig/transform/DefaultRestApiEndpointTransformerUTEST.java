@@ -18,8 +18,8 @@ package com.rba.jaxrs.autoconfig.transform;
 
 import com.rba.jaxrs.autoconfig.annotations.RestApiEndpoint;
 import com.rba.jaxrs.autoconfig.exceptions.ContextResolverException;
-import com.rba.jaxrs.autoconfig.stubs.StubEndpointInvalidContext;
-import com.rba.jaxrs.autoconfig.stubs.StubEndpointInvalidVersion;
+import com.rba.jaxrs.autoconfig.stubs.noscan.StubEndpointInvalidContext;
+import com.rba.jaxrs.autoconfig.stubs.noscan.StubEndpointInvalidVersion;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
