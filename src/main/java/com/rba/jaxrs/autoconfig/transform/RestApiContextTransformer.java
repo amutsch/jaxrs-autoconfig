@@ -17,6 +17,8 @@
 package com.rba.jaxrs.autoconfig.transform;
 
 import com.rba.jaxrs.autoconfig.annotations.RestApiEndpoint;
+import com.rba.jaxrs.autoconfig.classify.ApiContext;
+import com.rba.jaxrs.autoconfig.version.ApiVersion;
 
 /**
  * The transformer interface is responsible for the process of transforming a single
@@ -38,4 +40,14 @@ public interface RestApiContextTransformer {
      * @return the endpoint context container with the context resolved and a flag indicating whether it is enabled.
      */
     EndpointContextContainer getEndpointContext(RestApiEndpoint endpointAnnotation);
+
+    /**
+     * Uses the @{@link ApiVersion} and {@link ApiContext} to create the ApiPath.  This allows us to ensure the same
+     * transforms are occurring when the rest endpoints are resolved and any other usages of the path resolving.
+     *
+     * @param apiVersion  the api version
+     * @param apiContexts the api contexts
+     * @return the endpoint context container
+     */
+    EndpointContextContainer resolveApiPath(ApiVersion apiVersion, ApiContext... apiContexts);
 }

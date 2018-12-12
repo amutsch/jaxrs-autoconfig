@@ -25,7 +25,9 @@ import io.github.classgraph.ClassGraph;
 import io.github.classgraph.ClassInfoList;
 import io.github.classgraph.ScanResult;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -63,19 +65,16 @@ public class DefaultRestApiEndpointTransformer implements RestApiContextTransfor
 
     @Override
     public EndpointContextContainer getEndpointContext(RestApiEndpoint endpointAnnotation) {
-        StringBuilder context = new StringBuilder("");
-        boolean contextEnabled = true;
+        ApiVersion apiVersionEntry = null;
+        List<ApiContext> contexts = new ArrayList<>();
         //No version is valid and defaults to empty and enabled.  If entry exists we must be able to resolve it.
         if (!endpointAnnotation.apiVersionEnumName().isEmpty()) {
-            ApiVersion apiVersionEntry = resolveApiVersion(endpointAnnotation.apiVersionEnumName());
+            apiVersionEntry = resolveApiVersion(endpointAnnotation.apiVersionEnumName());
             if (apiVersionEntry == null) {
                 throw new ContextResolverException("Unable to resolve Api Version information from the endpoint annotation for "
                         + "value: " + endpointAnnotation.apiVersionEnumName());
             }
-            contextEnabled = contextEnabled && apiVersionEntry.isApiVersionEnabled();
-            if(apiVersionEntry.getApiVersion() != null && !apiVersionEntry.getApiVersion().isEmpty()) {
-                context.append("/").append(apiVersionEntry.getApiVersion());
-            }
+
         }
         for(String enumValueName : endpointAnnotation.apiContextEnumNames()) {
             ApiContext contextEnum = resolveApiContext(enumValueName);
@@ -84,9 +83,28 @@ public class DefaultRestApiEndpointTransformer implements RestApiContextTransfor
                         + "value: " + enumValueName + ". The annotation contains the following contexts to resolve: "
                         + String.join(",", endpointAnnotation.apiContextEnumNames()));
             }
-            contextEnabled = contextEnabled && contextEnum.isApiContextEnabled();
-            if(contextEnum.getApiContext() != null && !contextEnum.getApiContext().isEmpty()) {
-                context.append("/").append(contextEnum.getApiContext());
+            contexts.add(contextEnum);
+        }
+        return resolveApiPath(apiVersionEntry, contexts.toArray(new ApiContext[]{}));
+    }
+
+    @Override
+    public EndpointContextContainer resolveApiPath(ApiVersion apiVersion, ApiContext... apiContexts) {
+        boolean contextEnabled = true;
+        StringBuilder context = new StringBuilder("");
+
+        if(apiVersion != null) {
+            contextEnabled = contextEnabled && apiVersion.isApiVersionEnabled();
+            if (apiVersion.getApiVersion() != null && !apiVersion.getApiVersion().isEmpty()) {
+                context.append("/").append(apiVersion.getApiVersion());
+            }
+        }
+        if(apiContexts != null && apiContexts.length > 0) {
+            for(ApiContext contextEnum : apiContexts) {
+                contextEnabled = contextEnabled && contextEnum.isApiContextEnabled();
+                if (contextEnum.getApiContext() != null && !contextEnum.getApiContext().isEmpty()) {
+                    context.append("/").append(contextEnum.getApiContext());
+                }
             }
         }
         String builtContext = context.toString();

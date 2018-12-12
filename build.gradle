@@ -21,6 +21,8 @@ ext {
     jaxrsVersion='2.1.1'
     classgraphVersion='4.4.12'
     springVersion='5.1.2.RELEASE'
+    springBootVersion='2.1.1.RELEASE'
+    cxfVersion='3.2.7'
 }
 
 //Jar Information
@@ -58,6 +60,10 @@ dependencies {
 
     //Spring annotations for component scanning
     implementation("org.springframework:spring-context:${springVersion}")
+    implementation("org.springframework.boot:spring-boot-autoconfigure:${springBootVersion}")
+    
+    //We want CXF to be optional
+    api("org.apache.cxf:cxf-rt-frontend-jaxrs:${cxfVersion}")
 }
 
 test {
