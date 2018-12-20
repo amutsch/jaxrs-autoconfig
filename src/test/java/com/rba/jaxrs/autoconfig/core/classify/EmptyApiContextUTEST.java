@@ -14,18 +14,29 @@
  * limitations under the License.
  */
 
-package com.rba.jaxrs.autoconfig.stubs;
+package com.rba.jaxrs.autoconfig.core.classify;
 
-import com.rba.jaxrs.autoconfig.core.annotations.RestApiEndpoint;
-
-import javax.ws.rs.Path;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 /**
+ * Runs basic validations to ensure the {@link EmptyApiContext} properly meets the {@link ApiContext} expectations and defaults
+ * come
+ * through.
+ *
  * @author AUtsch - Adam Utsch - adam.utsch@rbaconsulting.com
  * @since 11/14/2018
  */
-@RestApiEndpoint
-@Path("/just/annotation")
-public class StubEndpointWithEmptyAnnotation extends TestEndpoint {
-    //Empty class, annotation testing
+class EmptyApiContextUTEST {
+
+    @Test
+    void validateApiContext() {
+        Assertions.assertNull(EmptyApiContext.EMPTY_API_CONTEXT.getApiContext(), "The API Context should always be null");
+    }
+
+    @Test
+    void validateEmptyApiContextEnabled() {
+        Assertions.assertTrue(EmptyApiContext.EMPTY_API_CONTEXT.isApiContextEnabled(), "This should always be true from "
+                + "the default of the interface");
+    }
 }

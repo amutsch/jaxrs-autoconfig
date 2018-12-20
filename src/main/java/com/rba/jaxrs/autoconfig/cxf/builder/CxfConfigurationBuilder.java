@@ -39,6 +39,8 @@ public class CxfConfigurationBuilder {
     private Bus bus;
     private final List<Interceptor<?>> incomingInterceptors = new ArrayList<>();
     private final List<Interceptor<?>> outgoingInterceptors = new ArrayList<>();
+    private final List<Interceptor<?>> incomingFaultInterceptors = new ArrayList<>();
+    private final List<Interceptor<?>> outgoingFaultInterceptors = new ArrayList<>();
     private final List<Object> providers = new ArrayList<>();
     private final Map<String, Object> properties = new HashMap<>();
     private String rootContext;
@@ -179,6 +181,66 @@ public class CxfConfigurationBuilder {
     }
 
     /**
+     * Adds all the interceptors to the incoming fault interceptor list
+     *
+     * @param incomingFaultInterceptors the incoming interceptors
+     * @return the cxf configuration builder
+     * @throws IllegalArgumentException when a null list of interceptors is input
+     */
+    public CxfConfigurationBuilder setIncomingFaultInterceptors(List<Interceptor<?>> incomingFaultInterceptors) {
+        if (incomingFaultInterceptors == null) {
+            throw new IllegalArgumentException("Interceptor list can not be null");
+        }
+        this.incomingFaultInterceptors.addAll(incomingFaultInterceptors);
+        return this;
+    }
+
+    /**
+     * Add incoming interceptor to the incoming fault interceptors list
+     *
+     * @param incomingFaultInterceptor the incoming interceptor
+     * @return the cxf configuration builder
+     * @throws IllegalArgumentException when a null interceptor is input
+     */
+    public CxfConfigurationBuilder addIncomingFaultInterceptor(Interceptor<?> incomingFaultInterceptor) {
+        if (incomingFaultInterceptor == null) {
+            throw new IllegalArgumentException("Interceptor can not be null");
+        }
+        this.incomingFaultInterceptors.add(incomingFaultInterceptor);
+        return this;
+    }
+
+    /**
+     * Adds all the interceptors into the outgoing fault interceptor list
+     *
+     * @param outgoingFaultInterceptors the outgoing interceptors
+     * @return the cxf configuration builder
+     * @throws IllegalArgumentException when a null interceptor list is input
+     */
+    public CxfConfigurationBuilder setOutgoingFaultInterceptors(List<Interceptor<?>> outgoingFaultInterceptors) {
+        if (outgoingFaultInterceptors == null) {
+            throw new IllegalArgumentException("Interceptor list can not be null");
+        }
+        this.outgoingFaultInterceptors.addAll(outgoingFaultInterceptors);
+        return this;
+    }
+
+    /**
+     * Add outgoing interceptor to the outgoing fault interceptor list
+     *
+     * @param outgoingFaultInterceptor the outgoing interceptor
+     * @return the cxf configuration builder
+     * @throws IllegalArgumentException when a null interceptor is input
+     */
+    public CxfConfigurationBuilder addOutgoingFaultInterceptor(Interceptor<?> outgoingFaultInterceptor) {
+        if (outgoingFaultInterceptor == null) {
+            throw new IllegalArgumentException("Interceptor can not be null");
+        }
+        this.outgoingFaultInterceptors.add(outgoingFaultInterceptor);
+        return this;
+    }
+
+    /**
      * Adds all providers to the existing list of providers
      *
      * @param providers the providers
@@ -245,7 +307,7 @@ public class CxfConfigurationBuilder {
      * @return the cxf configuration
      */
     public CxfConfiguration build() {
-        return new CxfConfiguration(rootContext, bus, features, incomingInterceptors, outgoingInterceptors, providers,
-            properties);
+        return new CxfConfiguration(rootContext, bus, features, incomingInterceptors, outgoingInterceptors,
+            incomingFaultInterceptors, outgoingFaultInterceptors, providers, properties);
     }
 }

@@ -14,18 +14,25 @@
  * limitations under the License.
  */
 
-package com.rba.jaxrs.autoconfig.stubs;
+package com.rba.jaxrs.autoconfig.core.version;
 
-import com.rba.jaxrs.autoconfig.core.annotations.RestApiEndpoint;
-
-import javax.ws.rs.Path;
 
 /**
+ * A default implementation of {@link ApiVersion} that provides a null value for api version and is enabled.
+ *<p/>
+ * This is an enum to support embedding into an annotation.
+ *
  * @author AUtsch - Adam Utsch - adam.utsch@rbaconsulting.com
- * @since 11/14/2018
+ * @since 11 /13/2018
+ * @since 0.1.0
  */
-@RestApiEndpoint
-@Path("/just/annotation")
-public class StubEndpointWithEmptyAnnotation extends TestEndpoint {
-    //Empty class, annotation testing
+public enum EmptyApiVersion implements ApiVersion {
+
+    EMPTY_API_VERSION;
+
+    @Override
+    public String getApiVersion() {
+        return null;
+    }
+
 }

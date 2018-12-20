@@ -16,7 +16,7 @@
 
 package com.rba.jaxrs.autoconfig.stubs;
 
-import com.rba.jaxrs.autoconfig.classify.ApiContext;
+import com.rba.jaxrs.autoconfig.core.classify.ApiContext;
 
 /**
  * @author AUtsch - Adam Utsch - adam.utsch@rbaconsulting.com

@@ -4,7 +4,6 @@ plugins {
     //Gradle build scan plugin
     id "com.gradle.build-scan" version "1.16"
     //Code Quality plugins
-    id "com.digitalascent.gradle.errorprone" version "1.0"
     id "ru.vyarus.animalsniffer" version "1.4.6"
     id "checkstyle"
     id "findbugs"
@@ -23,6 +22,7 @@ ext {
     springVersion='5.1.2.RELEASE'
     springBootVersion='2.1.1.RELEASE'
     cxfVersion='3.2.7'
+    jacksonVersion='2.9.7'
 }
 
 //Jar Information
@@ -48,6 +48,13 @@ dependencies {
     //Cucumber Support
     testImplementation(group: 'io.cucumber', name: 'cucumber-java', version: "${cucumberVersion}")
     testImplementation(group: 'io.cucumber', name: 'cucumber-junit', version: "${cucumberVersion}")
+    //We are using this only to test some features
+    testImplementation("com.fasterxml.jackson.jaxrs:jackson-jaxrs-json-provider:${jacksonVersion}")
+    testImplementation("org.springframework.boot:spring-boot-starter-test:${springBootVersion}")
+    testImplementation("org.springframework:spring-test:${springVersion}")
+    testImplementation("org.springframework.boot:spring-boot-starter-web:${springBootVersion}")
+    //Testing a valid usage
+    testImplementation("org.apache.cxf:cxf-rt-features-logging:${cxfVersion}")
 
     //Logging API
     api("org.slf4j:slf4j-api:${slf4jApiVersion}")

@@ -14,18 +14,19 @@
  * limitations under the License.
  */
 
-package com.rba.jaxrs.autoconfig.stubs;
+package com.rba.jaxrs.autoconfig.core.annotations;
 
-import com.rba.jaxrs.autoconfig.core.annotations.RestApiEndpoint;
-
-import javax.ws.rs.Path;
+import cucumber.api.CucumberOptions;
+import cucumber.api.junit.Cucumber;
+import org.junit.runner.RunWith;
 
 /**
  * @author AUtsch - Adam Utsch - adam.utsch@rbaconsulting.com
  * @since 11/14/2018
  */
-@RestApiEndpoint
-@Path("/just/annotation")
-public class StubEndpointWithEmptyAnnotation extends TestEndpoint {
-    //Empty class, annotation testing
+@RunWith(Cucumber.class)
+@CucumberOptions(plugin = {"pretty"})
+public class CucumberTestRunner {
+    //Per cucumber documentation this is only an entry point.  The various tests can not contain these annotations, only
+    // test steps.
 }

@@ -16,13 +16,16 @@
 
 package com.rba.jaxrs.autoconfig.stubs;
 
-import com.rba.jaxrs.autoconfig.annotations.RestApiEndpoint;
+import com.rba.jaxrs.autoconfig.core.annotations.RestApiEndpoint;
+
+import javax.ws.rs.Path;
 
 /**
  * @author AUtsch - Adam Utsch - adam.utsch@rbaconsulting.com
  * @since 11/14/2018
  */
 @RestApiEndpoint(apiVersionEnumName = "EXTERNAL_V1", apiContextEnumNames = "OPEN")
-public class StubEndpointWithVersionAndSingleContext {
+@Path("/single")
+public class StubEndpointWithVersionAndSingleContext extends TestEndpoint {
     //Empty class, annotation testing
 }

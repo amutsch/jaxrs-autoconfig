@@ -16,16 +16,24 @@
 
 package com.rba.jaxrs.autoconfig.stubs;
 
-import com.rba.jaxrs.autoconfig.core.annotations.RestApiEndpoint;
-
+import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 
 /**
  * @author AUtsch - Adam Utsch - adam.utsch@rbaconsulting.com
- * @since 11/14/2018
+ * @since 12/19/2018
  */
-@RestApiEndpoint
-@Path("/just/annotation")
-public class StubEndpointWithEmptyAnnotation extends TestEndpoint {
-    //Empty class, annotation testing
+public class TestEndpoint {
+
+    @Path("/available")
+    @GET
+    public String available() {
+        return "ok";
+    }
+
+    @Path("/health")
+    @GET
+    public String health() {
+        return "ok";
+    }
 }
