@@ -14,18 +14,16 @@
  * limitations under the License.
  */
 
-package com.rba.jaxrs.autoconfig.stubs;
+package com.rba.jaxrs.autoconfig.core.scan.stub;
 
 import com.rba.jaxrs.autoconfig.core.annotations.RestApiEndpoint;
-
-import javax.ws.rs.Path;
 
 /**
  * @author AUtsch - Adam Utsch - adam.utsch@rbaconsulting.com
  * @since 11/14/2018
  */
-@RestApiEndpoint
-@Path("/just/annotation")
-public class StubEndpointWithEmptyAnnotation extends TestEndpoint {
+@RestApiEndpoint(apiVersionEnumName = "EXTERNAL_V1", apiContextEnumNames = "ADMIN")
+@RestApiEndpoint(apiVersionEnumName = "INTERNAL", apiContextEnumNames = {"OPEN"})
+public class StubEndpointWithMultipleAnnotationsForScan {
     //Empty class, annotation testing
 }

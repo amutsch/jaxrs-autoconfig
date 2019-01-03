@@ -14,18 +14,14 @@
  * limitations under the License.
  */
 
-package com.rba.jaxrs.autoconfig.stubs;
-
-import com.rba.jaxrs.autoconfig.core.annotations.RestApiEndpoint;
-
-import javax.ws.rs.Path;
+package com.rba.jaxrs.autoconfig.core.customizer;
 
 /**
  * @author AUtsch - Adam Utsch - adam.utsch@rbaconsulting.com
- * @since 11/14/2018
+ * @since 12/11/2018
  */
-@RestApiEndpoint
-@Path("/just/annotation")
-public class StubEndpointWithEmptyAnnotation extends TestEndpoint {
-    //Empty class, annotation testing
+@FunctionalInterface
+public interface BootCustomizer<T> {
+
+    void customize(T factory);
 }

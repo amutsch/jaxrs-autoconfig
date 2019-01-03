@@ -16,7 +16,7 @@
 
 package com.rba.jaxrs.autoconfig.stubs.noscan;
 
-import com.rba.jaxrs.autoconfig.annotations.RestApiEndpoint;
+import com.rba.jaxrs.autoconfig.core.annotations.RestApiEndpoint;
 
 /**
  * @author AUtsch - Adam Utsch - adam.utsch@rbaconsulting.com

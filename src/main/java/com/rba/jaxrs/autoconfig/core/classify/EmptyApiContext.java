@@ -14,18 +14,24 @@
  * limitations under the License.
  */
 
-package com.rba.jaxrs.autoconfig.stubs;
-
-import com.rba.jaxrs.autoconfig.core.annotations.RestApiEndpoint;
-
-import javax.ws.rs.Path;
+package com.rba.jaxrs.autoconfig.core.classify;
 
 /**
+ * A default implementation of {@link ApiContext} that provides a null value for api context and is enabled.
+ * <p/>
+ * This is an enum to support embedding into an annotation.
+ *
  * @author AUtsch - Adam Utsch - adam.utsch@rbaconsulting.com
- * @since 11/14/2018
+ * @since 11 /14/2018
+ * @Since 0.1.0
  */
-@RestApiEndpoint
-@Path("/just/annotation")
-public class StubEndpointWithEmptyAnnotation extends TestEndpoint {
-    //Empty class, annotation testing
+public enum EmptyApiContext implements ApiContext {
+
+    EMPTY_API_CONTEXT;
+
+    @Override
+    public String getApiContext() {
+        return null;
+    }
+
 }

@@ -14,18 +14,23 @@
  * limitations under the License.
  */
 
-package com.rba.jaxrs.autoconfig.stubs;
+package com.rba.jaxrs.autoconfig.cxf.builder;
 
-import com.rba.jaxrs.autoconfig.core.annotations.RestApiEndpoint;
-
-import javax.ws.rs.Path;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 /**
  * @author AUtsch - Adam Utsch - adam.utsch@rbaconsulting.com
- * @since 11/14/2018
+ * @since 12/20/2018
  */
-@RestApiEndpoint
-@Path("/just/annotation")
-public class StubEndpointWithEmptyAnnotation extends TestEndpoint {
-    //Empty class, annotation testing
+public class CxfConfigurationUTEST {
+
+    @Test
+    public void equalsValidation() {
+        CxfConfiguration config = new CxfConfigurationBuilder().build();
+        CxfConfiguration config2 = new CxfConfigurationBuilder().build();
+        Assertions.assertAll(() -> Assertions.assertEquals(config, config),
+            () -> Assertions.assertEquals(config, config2),
+            () -> Assertions.assertNotEquals(config, Boolean.TRUE));
+    }
 }

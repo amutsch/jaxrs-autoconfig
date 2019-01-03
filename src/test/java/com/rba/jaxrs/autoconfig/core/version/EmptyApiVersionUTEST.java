@@ -14,36 +14,27 @@
  * limitations under the License.
  */
 
-package com.rba.jaxrs.autoconfig.stubs;
+package com.rba.jaxrs.autoconfig.core.version;
 
-import com.rba.jaxrs.autoconfig.core.version.ApiVersion;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 /**
+ * Runs basic validations to ensure the EmptyApiVersion properly meets the ApiVersion expectations and defaults come through.
+ *
  * @author AUtsch - Adam Utsch - adam.utsch@rbaconsulting.com
- * @since 11/14/2018
+ * @since 11/13/2018
  */
-public enum ApiVersionTestImpl implements ApiVersion {
-    INTERNAL("", true),
-    EXTERNAL_V1("v1", true),
-    EXTERNAL_V2("v2", false),
-    NULL_VERSION(null, true);
+class EmptyApiVersionUTEST {
 
-
-    private final String apiVersion;
-    private final boolean apiEnabled;
-
-    ApiVersionTestImpl(String version, boolean enabled) {
-        this.apiVersion = version;
-        this.apiEnabled = enabled;
+    @Test
+    void validateApiVersion() {
+        Assertions.assertNull(EmptyApiVersion.EMPTY_API_VERSION.getApiVersion(), "The API Version should always be null");
     }
 
-    @Override
-    public String getApiVersion() {
-        return apiVersion;
-    }
-
-    @Override
-    public boolean isApiVersionEnabled() {
-        return apiEnabled;
+    @Test
+    void validateEmptyApiVersionEnabled() {
+        Assertions.assertTrue(EmptyApiVersion.EMPTY_API_VERSION.isApiVersionEnabled(), "This should always be true from the "
+                + "default of the interface");
     }
 }
