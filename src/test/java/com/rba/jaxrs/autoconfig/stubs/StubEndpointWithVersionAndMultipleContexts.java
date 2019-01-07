@@ -24,7 +24,7 @@ import javax.ws.rs.Path;
  * @author AUtsch - Adam Utsch - adam.utsch@rbaconsulting.com
  * @since 11/14/2018
  */
-@RestApiEndpoint(apiVersionEnumName = "EXTERNAL_V2", apiContextEnumNames = {"OPEN", "ADMIN", "TEST"})
+@RestApiEndpoint(apiVersionEnumName = "EXTERNAL_V2", apiContextEnumNames = {"OPEN", "ADMIN", "TEST", "NULL_CONTEXT"})
 @Path("/multicontext")
 public class StubEndpointWithVersionAndMultipleContexts extends TestEndpoint {
     //Empty class, annotation testing

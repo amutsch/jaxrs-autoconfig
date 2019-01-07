@@ -9,6 +9,6 @@ Feature: Are Rest Api Endpoint Annotation Values passed through?
     Examples:
     | className | version | context |
     | com.rba.jaxrs.autoconfig.stubs.StubEndpointWithEmptyAnnotation | EMPTY_API_VERSION | EMPTY_API_CONTEXT |
-    | com.rba.jaxrs.autoconfig.stubs.StubEndpointWithVersionAndMultipleContexts | EXTERNAL_V2 | OPEN/ADMIN/TEST |
+    | com.rba.jaxrs.autoconfig.stubs.StubEndpointWithVersionAndMultipleContexts | EXTERNAL_V2 | OPEN/ADMIN/TEST/NULL_CONTEXT |
     | com.rba.jaxrs.autoconfig.stubs.StubEndpointWithVersionAndSingleContext | EXTERNAL_V1 | OPEN |
-    | com.rba.jaxrs.autoconfig.stubs.StubEndpointWithMultipleAnnotations | EXTERNAL_V1,INTERNAL | OPEN,OPEN/TEST |
+    | com.rba.jaxrs.autoconfig.stubs.StubEndpointWithMultipleAnnotations | EXTERNAL_V1,INTERNAL | OPEN,OPEN/TEST/NULL_CONTEXT |

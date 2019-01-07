@@ -51,14 +51,76 @@ public class CxfServerFactoryCustomizerUTEST {
     }
 
     @Test
-    void equalsValidation() {
-        CxfServerFactoryCustomizer customizer = new CxfServerFactoryCustomizer(new CxfConfigurationBuilder().build(), false,
+    void nullEqualsCheck() {
+        CxfServerFactoryCustomizer customizer = new CxfServerFactoryCustomizer(new CxfConfigurationBuilder().build(), true,
+            null);
+        Assertions.assertFalse(customizer.equals(null));
+    }
+
+    @Test
+    void wrongClassCheck() {
+        CxfServerFactoryCustomizer customizer = new CxfServerFactoryCustomizer(new CxfConfigurationBuilder().build(), true,
+            null);
+        Assertions.assertFalse(customizer.equals(Boolean.TRUE));
+    }
+
+    @Test
+    void applyToAllEqualsCheck() {
+        CxfServerFactoryCustomizer customizer = new CxfServerFactoryCustomizer(new CxfConfigurationBuilder().build(), true,
+            null);
+        CxfServerFactoryCustomizer equalCustomizer = new CxfServerFactoryCustomizer(new CxfConfigurationBuilder().build(),
+            true, null);
+        CxfServerFactoryCustomizer notEqualCustomizer = new CxfServerFactoryCustomizer(new CxfConfigurationBuilder().build(),
+            false, null);
+        completeAssertions(customizer, equalCustomizer, notEqualCustomizer);
+    }
+
+    @Test
+    void apiVersionEqualsCheck() {
+        CxfServerFactoryCustomizer customizer = new CxfServerFactoryCustomizer(new CxfConfigurationBuilder().build(), true,
+            ApiVersionTestImpl.EXTERNAL_V1);
+        CxfServerFactoryCustomizer equalCustomizer = new CxfServerFactoryCustomizer(new CxfConfigurationBuilder().build(),
+            true, ApiVersionTestImpl.EXTERNAL_V1);
+        CxfServerFactoryCustomizer notEqualCustomizer = new CxfServerFactoryCustomizer(new CxfConfigurationBuilder().build(),
+            true, ApiVersionTestImpl.EXTERNAL_V2);
+        completeAssertions(customizer, equalCustomizer, notEqualCustomizer);
+    }
+
+    @Test
+    void apiVersionNullEqualsCheck() {
+        CxfServerFactoryCustomizer customizer = new CxfServerFactoryCustomizer(new CxfConfigurationBuilder().build(), true,
+            null);
+        CxfServerFactoryCustomizer equalCustomizer = new CxfServerFactoryCustomizer(new CxfConfigurationBuilder().build(),
+            true, null);
+        CxfServerFactoryCustomizer notEqualCustomizer = new CxfServerFactoryCustomizer(new CxfConfigurationBuilder().build(),
+            true, ApiVersionTestImpl.EXTERNAL_V2);
+        completeAssertions(customizer, equalCustomizer, notEqualCustomizer);
+        Assertions.assertNotEquals(notEqualCustomizer, customizer);
+    }
+
+    @Test
+    void apiContextEqualsCheck() {
+        CxfServerFactoryCustomizer customizer = new CxfServerFactoryCustomizer(new CxfConfigurationBuilder().build(), true,
             ApiVersionTestImpl.EXTERNAL_V1, ApiContextTestImpl.AUTHENTICATED, ApiContextTestImpl.ADMIN);
-        CxfServerFactoryCustomizer customizer2 = new CxfServerFactoryCustomizer(new CxfConfigurationBuilder().build(), false,
-            ApiVersionTestImpl.EXTERNAL_V1, ApiContextTestImpl.AUTHENTICATED, ApiContextTestImpl.ADMIN);
-        Assertions.assertAll(() -> Assertions.assertEquals(customizer, customizer),
-            () -> Assertions.assertTrue(customizer.equals(customizer2)),
-            () -> Assertions.assertNotEquals(customizer, Boolean.TRUE));
+        CxfServerFactoryCustomizer equalCustomizer = new CxfServerFactoryCustomizer(new CxfConfigurationBuilder().build(),
+            true, ApiVersionTestImpl.EXTERNAL_V1, ApiContextTestImpl.AUTHENTICATED, ApiContextTestImpl.ADMIN);
+        CxfServerFactoryCustomizer notEqualCustomizer = new CxfServerFactoryCustomizer(new CxfConfigurationBuilder().build(),
+            true, ApiVersionTestImpl.EXTERNAL_V1, ApiContextTestImpl.AUTHENTICATED, ApiContextTestImpl.TEST);
+        completeAssertions(customizer, equalCustomizer, notEqualCustomizer);
+    }
+
+    @Test
+    void cxfConfigEqualsCheck() {
+        CxfServerFactoryCustomizer customizer =
+            new CxfServerFactoryCustomizer(new CxfConfigurationBuilder().setShowInWadl(false).build(),
+            true, null);
+        CxfServerFactoryCustomizer equalCustomizer =
+            new CxfServerFactoryCustomizer(new CxfConfigurationBuilder().setShowInWadl(false).build(),
+            true, null);
+        CxfServerFactoryCustomizer notEqualCustomizer =
+            new CxfServerFactoryCustomizer(new CxfConfigurationBuilder().addProperty("Property", Boolean.FALSE).build(),
+            true, null);
+        completeAssertions(customizer, equalCustomizer, notEqualCustomizer);
     }
 
     @Test
@@ -69,5 +131,14 @@ public class CxfServerFactoryCustomizerUTEST {
             ApiVersionTestImpl.EXTERNAL_V1, ApiContextTestImpl.AUTHENTICATED, ApiContextTestImpl.ADMIN);
         Assertions.assertEquals(customizer.hashCode(), customizer.hashCode());
         Assertions.assertEquals(customizer.hashCode(), customizer2.hashCode());
+    }
+
+    void completeAssertions(CxfServerFactoryCustomizer baseCustomizer, CxfServerFactoryCustomizer equalCustomizer,
+        CxfServerFactoryCustomizer notEqualCustomizer) {
+        Assertions.assertAll(() -> Assertions.assertEquals(baseCustomizer, baseCustomizer),
+            () -> Assertions.assertEquals(baseCustomizer, equalCustomizer),
+            () -> Assertions.assertEquals(baseCustomizer.hashCode(), equalCustomizer.hashCode()),
+            () -> Assertions.assertNotEquals(baseCustomizer, notEqualCustomizer),
+            () -> Assertions.assertNotEquals(baseCustomizer.hashCode(), notEqualCustomizer.hashCode()));
     }
 }

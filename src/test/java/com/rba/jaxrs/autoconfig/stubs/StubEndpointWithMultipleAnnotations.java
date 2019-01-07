@@ -25,7 +25,7 @@ import javax.ws.rs.Path;
  * @since 11/14/2018
  */
 @RestApiEndpoint(apiVersionEnumName = "EXTERNAL_V1", apiContextEnumNames = "OPEN")
-@RestApiEndpoint(apiVersionEnumName = "INTERNAL", apiContextEnumNames = {"OPEN", "TEST"})
+@RestApiEndpoint(apiVersionEnumName = "INTERNAL", apiContextEnumNames = {"OPEN", "TEST", "NULL_CONTEXT"})
 @Path("/multiple")
 public class StubEndpointWithMultipleAnnotations extends TestEndpoint {
     //Empty class, annotation testing

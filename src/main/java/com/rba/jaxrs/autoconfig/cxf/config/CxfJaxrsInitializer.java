@@ -63,7 +63,7 @@ public class CxfJaxrsInitializer implements ApplicationContextAware, DisposableB
 
     public void initializeCxfEndpoints() {
         Map<EndpointContextContainer, List<Class<?>>> configurationData;
-        if (blacklist != null && !blacklist.isEmpty()) {
+        if (!blacklist.isEmpty()) {
             configurationData = scanner.getAutoConfigurationData(
                 basePackages, blacklist.toArray(new String[]{}));
         } else {
@@ -73,29 +73,28 @@ public class CxfJaxrsInitializer implements ApplicationContextAware, DisposableB
         //The scanner will have collapsed any paths that boil down to the same actual address so we only need to process
         // each map entry.
         for (Map.Entry<EndpointContextContainer, List<Class<?>>> mapEntry : configurationData.entrySet()) {
-            if (mapEntry.getKey().isEnabled() && !mapEntry.getValue().isEmpty()) {
+            if (mapEntry.getKey().isEnabled()) {
 
                 List<Object> resourceBeans = new ArrayList<>();
                 for (Class<?> resourceClass : mapEntry.getValue()) {
                     Object bean = beanFactory.createBean(resourceClass, AutowireCapableBeanFactory.AUTOWIRE_BY_TYPE, true);
                     resourceBeans.add(bean);
                 }
-                if (!resourceBeans.isEmpty()) {
-                    JAXRSServerFactoryBean cxfFactoryBean = new JAXRSServerFactoryBean();
-                    cxfFactoryBean.setAddress(mapEntry.getKey().getEndpointContext());
-                    cxfFactoryBean.setServiceBeans(resourceBeans);
-                    if (cxfCustomizers != null) {
-                        cxfCustomizers.stream().sorted().forEach((customizer) -> customizer.customize(cxfFactoryBean));
-                    }
-                    try {
-                        beanFactory.initializeBean(cxfFactoryBean.create(),
-                            "cxfserver" + cxfFactoryBean.getAddress().replaceAll("/", "-"));
-                    }catch(ServiceConstructionException sce) {
-                        String resources = resourceBeans.stream()
-                            .map(expectedBean -> expectedBean.getClass().getSimpleName())
-                            .collect(Collectors.joining());
-                        LOG.warn("Error creating Cxf Jaxrs Server that was expected to contain service beans: " + resources);
-                    }
+                JAXRSServerFactoryBean cxfFactoryBean = new JAXRSServerFactoryBean();
+                cxfFactoryBean.setAddress(mapEntry.getKey().getEndpointContext());
+                cxfFactoryBean.setServiceBeans(resourceBeans);
+                //Run factory through customizers
+                cxfCustomizers.stream().sorted().forEach((customizer) -> customizer.customize(cxfFactoryBean));
+                //Initialize the jaxrs factory.  The factory will inspect for @Path annotations.  If it is missing on all
+                // the beans it will fail to construct the service.  Handle this and log as warning.
+                try {
+                    beanFactory.initializeBean(cxfFactoryBean.create(),
+                        "cxfserver" + cxfFactoryBean.getAddress().replaceAll("/", "-"));
+                } catch (ServiceConstructionException sce) {
+                    String resources = resourceBeans.stream()
+                        .map(expectedBean -> expectedBean.getClass().getSimpleName())
+                        .collect(Collectors.joining());
+                    LOG.warn("Error creating Cxf Jaxrs Server that was expected to contain service beans: " + resources);
                 }
             }
         }
