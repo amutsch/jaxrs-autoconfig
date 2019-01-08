@@ -158,10 +158,13 @@ public class CxfConfiguration implements InterceptorProvider {
 
     @Override
     public int hashCode() {
-        return Objects.hash(rootContext, bus, features.isEmpty() ? null : features, incomingInterceptors.isEmpty() ? null :
-            incomingInterceptors, outgoingInterceptors.isEmpty() ? null : outgoingInterceptors,
+        return Objects.hash(rootContext, bus,
+            features.isEmpty() ? null : features,
+            incomingInterceptors.isEmpty() ? null : incomingInterceptors,
+            outgoingInterceptors.isEmpty() ? null : outgoingInterceptors,
             incomingFaultInterceptors.isEmpty() ? null : incomingFaultInterceptors,
-            outgoingFaultInterceptors.isEmpty() ? null : outgoingFaultInterceptors, providers.isEmpty() ? null : providers,
+            outgoingFaultInterceptors.isEmpty() ? null : outgoingFaultInterceptors,
+            providers.isEmpty() ? null : providers,
             properties.isEmpty() ? null : properties);
     }
 }

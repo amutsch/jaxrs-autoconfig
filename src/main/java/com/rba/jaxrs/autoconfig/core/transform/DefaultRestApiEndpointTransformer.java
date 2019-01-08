@@ -94,12 +94,12 @@ public class DefaultRestApiEndpointTransformer implements RestApiContextTransfor
         StringBuilder context = new StringBuilder("");
 
         if(apiVersion != null) {
-            contextEnabled = contextEnabled && apiVersion.isApiVersionEnabled();
+            contextEnabled = apiVersion.isApiVersionEnabled();
             if (apiVersion.getApiVersion() != null && !apiVersion.getApiVersion().isEmpty()) {
                 context.append("/").append(apiVersion.getApiVersion());
             }
         }
-        if(apiContexts != null && apiContexts.length > 0) {
+        if(apiContexts.length > 0) {
             for(ApiContext contextEnum : apiContexts) {
                 contextEnabled = contextEnabled && contextEnum.isApiContextEnabled();
                 if (contextEnum.getApiContext() != null && !contextEnum.getApiContext().isEmpty()) {

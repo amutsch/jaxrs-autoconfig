@@ -135,7 +135,8 @@ public class CxfServerFactoryCustomizer implements BootCustomizer<JAXRSServerFac
         CxfServerFactoryCustomizer that = (CxfServerFactoryCustomizer) o;
         return applyToAllEndpoints == that.applyToAllEndpoints
             && cxfConfig.equals(that.cxfConfig)
-            && apiVersion.equals(that.apiVersion)
+            && ((apiVersion == null && that.apiVersion == null)
+                || (apiVersion != null && apiVersion.equals(that.apiVersion)))
             && Arrays.equals(apiContexts, that.apiContexts);
     }
 

@@ -24,6 +24,7 @@ import com.rba.jaxrs.autoconfig.cxf.config.CxfServerFactoryCustomizer;
 import com.rba.jaxrs.autoconfig.stubs.ApiContextTestImpl;
 import com.rba.jaxrs.autoconfig.stubs.ApiVersionTestImpl;
 import org.apache.cxf.bus.spring.SpringBus;
+import org.apache.cxf.ext.logging.LoggingInInterceptor;
 import org.apache.cxf.feature.Feature;
 import org.apache.cxf.feature.StaxTransformFeature;
 import org.apache.cxf.interceptor.AttachmentInInterceptor;
@@ -127,13 +128,13 @@ public class CxfServerFactoryUTEST {
             () -> Assertions.assertEquals(1, cxfBean.getOutInterceptors().size()),
             () -> Assertions.assertEquals(GZIPOutInterceptor.class.getName(),
                 cxfBean.getOutInterceptors().get(0).getClass().getName()),
-            () -> Assertions.assertEquals(0, cxfBean.getProviders().size()),
-            () -> Assertions.assertEquals(0, cxfBean.getFeatures().size()),
+            () -> Assertions.assertEquals(1, cxfBean.getProviders().size()),
+            () -> Assertions.assertEquals(1, cxfBean.getFeatures().size()),
             () -> Assertions.assertEquals(applyToAllCustomizer.getCxfConfiguration().getBus(), cxfBean.getBus()),
             () -> Assertions.assertNotEquals(fullCustomizer.getCxfConfiguration().getBus(), cxfBean.getBus()),
             () -> Assertions.assertEquals(0, cxfBean.getProperties(true).size()),
-            () -> Assertions.assertEquals(0, cxfBean.getOutFaultInterceptors().size()),
-            () -> Assertions.assertEquals(0, cxfBean.getInFaultInterceptors().size())
+            () -> Assertions.assertEquals(1, cxfBean.getOutFaultInterceptors().size()),
+            () -> Assertions.assertEquals(1, cxfBean.getInFaultInterceptors().size())
         );
     }
 
@@ -149,13 +150,13 @@ public class CxfServerFactoryUTEST {
             () -> Assertions.assertEquals(2, cxfBean.getOutInterceptors().size()),
             () -> Assertions.assertEquals(GZIPOutInterceptor.class.getName(),
                 cxfBean.getOutInterceptors().get(0).getClass().getName()),
-            () -> Assertions.assertEquals(1, cxfBean.getProviders().size()),
-            () -> Assertions.assertEquals(1, cxfBean.getFeatures().size()),
+            () -> Assertions.assertEquals(2, cxfBean.getProviders().size()),
+            () -> Assertions.assertEquals(2, cxfBean.getFeatures().size()),
             () -> Assertions.assertEquals(applyToAllCustomizer.getCxfConfiguration().getBus(), cxfBean.getBus()),
             () -> Assertions.assertNotEquals(fullCustomizer.getCxfConfiguration().getBus(), cxfBean.getBus()),
             () -> Assertions.assertEquals(0, cxfBean.getProperties(true).size()),
-            () -> Assertions.assertEquals(0, cxfBean.getOutFaultInterceptors().size()),
-            () -> Assertions.assertEquals(0, cxfBean.getInFaultInterceptors().size())
+            () -> Assertions.assertEquals(1, cxfBean.getOutFaultInterceptors().size()),
+            () -> Assertions.assertEquals(1, cxfBean.getInFaultInterceptors().size())
         );
     }
 
@@ -171,14 +172,14 @@ public class CxfServerFactoryUTEST {
             () -> Assertions.assertEquals(3, cxfBean.getOutInterceptors().size()),
             () -> Assertions.assertEquals(GZIPOutInterceptor.class.getName(),
                 cxfBean.getOutInterceptors().get(0).getClass().getName()),
-            () -> Assertions.assertEquals(3, cxfBean.getProviders().size()),
-            () -> Assertions.assertEquals(3, cxfBean.getFeatures().size()),
+            () -> Assertions.assertEquals(4, cxfBean.getProviders().size()),
+            () -> Assertions.assertEquals(4, cxfBean.getFeatures().size()),
             () -> Assertions.assertNotEquals(applyToAllCustomizer.getCxfConfiguration().getBus(), cxfBean.getBus()),
             () -> Assertions.assertEquals(fullCustomizer.getCxfConfiguration().getBus(), cxfBean.getBus()),
             () -> Assertions.assertEquals(4, cxfBean.getProperties(true).size()),
             () -> Assertions.assertTrue((Boolean)cxfBean.getProperties().get(CxfConfigurationBuilder.PRIVATE_ENDPOINT_KEY)),
-            () -> Assertions.assertEquals(3, cxfBean.getOutFaultInterceptors().size()),
-            () -> Assertions.assertEquals(2, cxfBean.getInFaultInterceptors().size())
+            () -> Assertions.assertEquals(4, cxfBean.getOutFaultInterceptors().size()),
+            () -> Assertions.assertEquals(3, cxfBean.getInFaultInterceptors().size())
         );
     }
 
@@ -218,12 +219,36 @@ public class CxfServerFactoryUTEST {
         }
 
         @Bean
+        public JacksonJaxbJsonProvider getProvider() {
+            return new JacksonJaxbJsonProvider();
+        }
+
+        @Bean
+        public GZIPFeature getGzipFeature() {
+            return new GZIPFeature();
+        }
+
+        @Bean
+        public FaultOutInterceptor getFaultOutInterceptor() {
+            return new FaultOutInterceptor();
+        }
+
+        @Bean
+        public LoggingInInterceptor getIncomingFaultInterceptor() {
+            return new LoggingInInterceptor();
+        }
+
+        @Bean
         public CxfServerFactoryCustomizer applyToAllCustomizer() {
             CxfConfigurationBuilder builder = new CxfConfigurationBuilder();
             builder.setRootContext("UnitTest");
             builder.setBus(new SpringBus());
             builder.addIncomingInterceptor(gzipInInterceptor());
             builder.addOutgoingInterceptor(gzipOutInterceptor());
+            builder.addProvider(getProvider());
+            builder.addFeature(getGzipFeature());
+            builder.addOutgoingFaultInterceptor(getFaultOutInterceptor());
+            builder.addIncomingFaultInterceptor(getIncomingFaultInterceptor());
             return new CxfServerFactoryCustomizer(builder.build(), true, null);
         }
 
@@ -233,6 +258,10 @@ public class CxfServerFactoryUTEST {
             builder.setRootContext("UnitTest");
             builder.addIncomingInterceptor(gzipInInterceptor());
             builder.addOutgoingInterceptor(gzipOutInterceptor());
+            builder.addProvider(getProvider());
+            builder.addFeature(getGzipFeature());
+            builder.addOutgoingFaultInterceptor(getFaultOutInterceptor());
+            builder.addIncomingFaultInterceptor(getIncomingFaultInterceptor());
             return new CxfServerFactoryCustomizer(builder.build(), true, null);
         }
 
